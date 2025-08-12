@@ -4,6 +4,8 @@ session_unset();
 session_destroy();
 header("Location: login.php");
 exit();
+?>
+
 
 
 // CREATE DATABASE IF NOT EXISTS users_db;

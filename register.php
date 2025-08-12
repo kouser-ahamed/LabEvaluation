@@ -1,15 +1,10 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "users_db");
-if ($conn->connect_error) {
-    die("Connection Failed: " . $conn->connect_error);
-}
-
+require 'db.php';
 if (isset($_POST['register'])) {
     $name = $conn->real_escape_string($_POST['name']);
     $email = $conn->real_escape_string($_POST['email']);
     $pass = $_POST['password'];
     $confirm_pass = $_POST['confirm_password'];
-
     if ($pass !== $confirm_pass) {
         echo "<script>alert('Passwords do not match!');</script>";
     } else {
@@ -27,7 +22,7 @@ if (isset($_POST['register'])) {
 <html>
 <head>
     <title>Register</title>
-    <!-- <style>
+    <style>
         body {
             font-family: Arial, sans-serif;
             background: #f9fafb;
@@ -86,7 +81,7 @@ if (isset($_POST['register'])) {
         a:hover {
             text-decoration: underline;
         }
-    </style> -->
+    </style>
 </head>
 <body>
 <div class="container">

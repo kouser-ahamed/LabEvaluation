@@ -1,29 +1,39 @@
 <?php
 session_start();
 require 'db.php';
-if (isset($_POST['login'])) {
-    $email = $conn->real_escape_string($_POST['email']);
-    $pass = $_POST['password'];
-    $sql = "SELECT * FROM users WHERE email='$email'";
-    $result = $conn->query($sql);
-    if ($result && $result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-        if (password_verify($pass, $user['password'])) {
-            $_SESSION['user'] = $user;
-            header("Location: dashboard.php");
-            exit();
-        } else {
-            echo "<script>alert('Invalid Password!');</script>";
-        }
+
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$user = $_SESSION['user'];
+$success = $error = "";
+
+if (isset($_POST['update'])) {
+    $new_email = $conn->real_escape_string($_POST['email']);
+    $new_pass = $_POST['password'];
+
+    if (!empty($new_pass)) {
+        $hashed_pass = password_hash($new_pass, PASSWORD_DEFAULT);
+        $sql = "UPDATE users SET email='$new_email', password='$hashed_pass' WHERE id={$user['id']}";
     } else {
-        echo "<script>alert('User Not Found!');</script>";
+        $sql = "UPDATE users SET email='$new_email' WHERE id={$user['id']}";
+    }
+
+    if ($conn->query($sql)) {
+        $result = $conn->query("SELECT * FROM users WHERE id={$user['id']}");
+        $_SESSION['user'] = $result->fetch_assoc();
+        $success = "Profile updated successfully!";
+    } else {
+        $error = "Update failed! Try again.";
     }
 }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Update Profile</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -31,7 +41,7 @@ if (isset($_POST['login'])) {
             margin: 0; padding: 0;
         }
         .container {
-            max-width: 360px;
+            max-width: 400px;
             background: #fff;
             margin: 60px auto;
             padding: 20px 25px;
@@ -71,29 +81,32 @@ if (isset($_POST['login'])) {
         button:hover {
             background: #357ABD;
         }
-        p {
-            margin-top: 15px;
+        p.message {
             font-size: 14px;
-            color: #555;
+            color: green;
+        }
+        p.error {
+            font-size: 14px;
+            color: red;
         }
         a {
             color: #4a90e2;
             text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>Login</h2>
+    <h2>Update Profile</h2>
+    <?php if ($success) echo "<p class='message'>$success</p>"; ?>
+    <?php if ($error) echo "<p class='error'>$error</p>"; ?>
     <form method="POST" autocomplete="off">
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit" name="login">Login</button>
+        <input type="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
+        <input type="password" name="password" placeholder="New Password (leave blank to keep same)">
+        <button type="submit" name="update">Update</button>
     </form>
-    <p>No account? <a href="register.php">Register</a></p>
+    <p><a href="dashboard.php">Back to Dashboard</a></p>
 </div>
 </body>
 </html>
