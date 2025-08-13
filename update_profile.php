@@ -34,7 +34,7 @@ if (isset($_POST['update'])) {
 <html>
 <head>
     <title>Update Profile</title>
-    <style>
+    <!-- <style>
         body {
             font-family: Arial, sans-serif;
             background: #f9fafb;
@@ -94,7 +94,7 @@ if (isset($_POST['update'])) {
             text-decoration: none;
             font-size: 14px;
         }
-    </style>
+    </style> -->
 </head>
 <body>
 <div class="container">
