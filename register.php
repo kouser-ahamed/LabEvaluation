@@ -103,10 +103,10 @@ if (isset($_POST['register'])) {
     <div class="container">
         <h2>Register</h2>
         <form method="POST" autocomplete="off">
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+            <input type="text" name="name" placeholder="Full Name" required><br>
+            <input type="email" name="email" placeholder="Email" required><br>
+            <input type="password" name="password" placeholder="Password" required><br>
+            <input type="password" name="confirm_password" placeholder="Confirm Password" required><br>
             <button type="submit" name="register">Register</button>
         </form>
         <p>Already have an account? <a href="login.php">Login</a></p>
