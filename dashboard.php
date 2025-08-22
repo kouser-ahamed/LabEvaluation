@@ -21,7 +21,7 @@ $result = $conn->query("SELECT * FROM users ORDER BY id ASC");
 <html>
 <head>
     <title>Dashboard</title>
-    <!-- <style>
+    <style>
         body {
             font-family: Arial, sans-serif;
             background: #f9fafb;
@@ -104,7 +104,7 @@ $result = $conn->query("SELECT * FROM users ORDER BY id ASC");
         button.delete-btn:hover {
             color: #c0392b;
         }
-    </style> -->
+    </style>
 </head>
 <body>
     <div class="container">

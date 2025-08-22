@@ -24,7 +24,7 @@ if (isset($_POST['login'])) {
 <html>
 <head>
     <title>Login</title>
-    <!-- <style>
+    <style>
         body {
             font-family: Arial, sans-serif;
             background: #f9fafb;
@@ -83,7 +83,7 @@ if (isset($_POST['login'])) {
         a:hover {
             text-decoration: underline;
         }
-    </style> -->
+    </style>
 </head>
 <body>
 <div class="container">

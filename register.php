@@ -23,7 +23,7 @@ if (isset($_POST['register'])) {
 
 <head>
     <title>Register</title>
-    <!-- <style>
+    <style>
         body {
             font-family: Arial, sans-serif;
             background: #f9fafb;
@@ -96,7 +96,7 @@ if (isset($_POST['register'])) {
         a:hover {
             text-decoration: underline;
         }
-    </style> -->
+    </style>
 </head>
 
 <body>
